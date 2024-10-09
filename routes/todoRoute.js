@@ -43,7 +43,7 @@ router.put('/:id', authMiddleware, async (req, res) => {
         if (!todo) {
             return res.status(404).json({ message: 'Todo not found' });
         }
-
+ 
         
 
         if (todo.user.toString() !== req.user._id.toString()) {
@@ -76,7 +76,7 @@ router.delete('/:id', authMiddleware, async (req, res) => {
             return res.status(401).json({ message: 'Not authorized' });
         }
 
-        await todo.remove();
+        await Todo.findByIdAndDelete(req.params.id);
         res.json({ message: 'Todo removed' });
     } catch (err) {
         console.error(err);
